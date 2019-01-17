@@ -166,7 +166,7 @@ fragment musicInfo on Music {
 $ npm install graphql-depth-limit
 ```
 
-It works with [express-graphql](https://github.com/graphql/express-graphql), [Apollo Server](https://github.com/apollographql/apollo-server), and [koa-graphql](https://github.com/chentsulin/koa-graphql).
+It works with [express-graphql](https://github.com/graphql/express-graphql) and [koa-graphql](https://github.com/chentsulin/koa-graphql).
 Here is an example with Express.
 
 ```js
@@ -183,25 +183,8 @@ app.use('/graphql', graphqlHTTP((req, res) => ({
 })))
 ```
 
-And similarly, for Apollo Server:
-
-```js
-import { ApolloServer } from 'apollo-server-express'
-import depthLimit from 'graphql-depth-limit'
-
-const server = new ApolloServer({
-  typeDefs,
-  resolvers,
-  validationRules: [depthLimit(10)]
-});
-
-server.applyMiddleware({ app }); // app is your existing express app
-```
-
-The first argument is the total depth limit. This will throw a validation error for queries (or mutations) with a depth of 11 or more.
-
-The second argument is an options object, where you can do things like specify ignored fields. Introspection fields are ignored by default.
-
+The first argument is the total depth limit. This will throw a validation error for queries (or mutations) with a depth of 11 or more.<br/>
+The second argument is an options object, where you can do things like specify ignored fields. Introspection fields are ignored by default.<br/>
 The third argument is a callback which receives an `Object` which is a map of the depths for each operation.<br/>
 
 ```js
